@@ -29,7 +29,7 @@
   
 <div id="header">
   <div class="brand">
-  <a  class="brand" href="{% url 'shelf:book_list' %}">Blog</a>
+  <a  class="brand" href="{% url 'shelf:book_list' %}">Library</a>
 </div>
 
   {% if request.user.is_authenticated %}
@@ -38,7 +38,7 @@
  <a href="{% url "dashboard" %}">My dashboard</a>
  </li>
  {% if request.user.is_staff or request.user.is_superuser %}
- <li><a href="{% url 'shelf:addpost' %}"style="padding:0px 10px 0px 0px;">Add Post</a></li>
+ <li><a href="{% url 'shelf:addbook' %}"style="padding:0px 10px 0px 0px;">Add Book</a></li>
 {% endif %}
 </ul>
 {% endif %} 

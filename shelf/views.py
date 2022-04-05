@@ -45,7 +45,7 @@ def is_authorized(user):
 
 
 
-def AddPost(request):
+def AddBook(request):
     """ 
     This function is used to add a new book to the database. which takes in used form which 
     we had created in forms.py and then we had used the model to add the data to the database.
