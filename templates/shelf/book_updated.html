@@ -1,0 +1,6 @@
+{% extends "blog\base.html" %}
+    
+    {% block content %}
+        <h1>You had successfull updated {{ book.title }}.</h1>
+        <a href="{% url 'shelf:book_list' %}">main page</a>
+    {% endblock %}

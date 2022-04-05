@@ -72,9 +72,11 @@ def dashboard(request):
 
 @login_required
 def edit(request):
+    """User given option to edit the form 
+    and accordingly add new data to the database.       """
     if request.method == 'POST':
         user_form = RegisterForm(request.POST, instance=request.user,data=request.POST)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile,data=request.POST,files=request.FILES)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile,data=request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()

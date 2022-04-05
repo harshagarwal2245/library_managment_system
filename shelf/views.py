@@ -36,6 +36,10 @@ def book_detail(request, year,month,day,book):
 
 
 def is_authorized(user):
+    """
+    This function is used to check if the user is authorized to add a book. can be also done by decorator
+    but we had used this function to make it more readable. 
+    """
     return user.is_staff or user.is_superuser
 
 
@@ -63,3 +67,45 @@ def AddPost(request):
     else:
         form=BookAddForm()
     return render(request,'shelf/add.html',{'form':form})
+
+
+def delbook(request,book_id):
+    """ 
+    this allows Admin to delete the book from database
+    it accepts id object as a unique parameter to find the
+    book
+    """
+    book=get_object_or_404(Book,id=book_id)
+    if is_authorized(request.user):
+        book.delete()
+        return render(request,'shelf/book_deleted.html',{'book':book})
+    else:
+        return render(request,'shelf/not_allowed.html')
+
+
+def update_book(request,book_id):
+    """ 
+    this allows Admin to update the book from database
+    we take book_id as a parameter to uniquely identify the
+    record and pass it as a instance to form so that it can
+    poppulate the field
+    """
+    book=get_object_or_404(Book,id=book_id)
+    if is_authorized(request.user):
+        if request.method=='POST':
+            form=BookAddForm(request.POST,instance=book)
+            if form.is_valid():
+                book=form.save(commit=False)
+                book.owner=request.user
+                book.slug=slugify(form.cleaned_data['title'])
+                book.published_date=timezone.now()
+                if is_authorized(request.user):
+                    book.save()
+                    return render(request,'shelf/book_updated.html',{'book':book})
+                else:
+                    return render(request,'shelf/not_allowed.html')
+        else:
+            form=BookAddForm(instance=book)
+        return render(request,'shelf/update.html',{'form':form})
+
+

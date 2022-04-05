@@ -42,6 +42,9 @@ class RegisterForm(forms.ModelForm):
 
 
 class UserEditForm(forms.ModelForm):
+    """
+    Allows user all to edit his email and first name and last name
+    """
     class Meta:
         model = User
         fields = ['first_name','last_name', 'email']
