@@ -1,0 +1,18 @@
+{% extends "base.html " %}
+
+{% block title %}My Library{% endblock %}
+{% block content %}
+ <h1>My Library</h1>
+ {% for book in books %}
+ <h2>
+ <a href="{{ book.get_absolute_url }}">
+ {{ book.title }}
+ </a>
+ </h2>
+ <p class="date">
+ Published {{ book.published_date }} by {{ book.author }}
+ </p>
+ {{ book.description|truncatewords:30|linebreaks }}
+ {% endfor %}
+ {% include "tags\pagination.html" with page=books %}
+{% endblock %}
