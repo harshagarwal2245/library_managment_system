@@ -19,4 +19,5 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('shelf.urls',namespace='shelf')),
+    path('accounts/',include('accounts.urls')),
 ]
